@@ -14,6 +14,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
+import Unit from "./Unit";
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -85,7 +87,7 @@ function NavigationDrawer(props) {
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <IconButton
-            color="white"
+            color="inherit"
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
@@ -131,9 +133,7 @@ function NavigationDrawer(props) {
       </nav>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <Typography paragraph>
-          Initial
-        </Typography>
+        <Unit/>
       </main>
     </div>
   );
