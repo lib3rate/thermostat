@@ -8,13 +8,22 @@ import {
   setCurrentIndoorTemperature,
   setCurrentOutdoorTemperature,
   increaseDesiredTemperature,
-  decreaseDesiredTemperature
+  decreaseDesiredTemperature,
+  selectCurrentUnit,
+  isTurnedOn,
+  selectMode,
+  selectCurrentIndoorTemperature,
+  selectCurrentOutdoorTemperature,
+  selectDesiredTemperature
 } from './unitSlice';
 
 import { fetchTemperature } from "../../helpers/helpers";
 
 function Unit() {
   const dispatch = useDispatch();
+
+  const currentUnit = useSelector(selectCurrentUnit);
+  const currentIndoorTemperature = useSelector(selectCurrentIndoorTemperature);
 
   useEffect(async () => {
     const averageIndoorTemperature = await fetchTemperature('temperature-1');
@@ -25,9 +34,13 @@ function Unit() {
   }, []);
 
   return (
-    <div className="App">
-      Initial
-      {/* {datapoints.map(datapoint => <div>datapoint.value</div>)} */}
+    <div>
+      <div>
+        {currentUnit} - Thermostat
+      </div>
+      <div>
+        {currentIndoorTemperature}
+      </div>
     </div>
   );
 }

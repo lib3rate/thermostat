@@ -13,7 +13,8 @@ export async function fetchTemperature(sensor) {
 
   const year = currentDateTime.getFullYear();
   const month = currentDateTime.getMonth() + 1;
-  const day = currentDateTime.getDate();
+  const currentTimestampDay = currentDateTime.getDate();
+  let previousTimestampDay = currentTimestampDay;
   const currentTimestampHour = currentDateTime.getHours();
   let previousTimestampHour = currentTimestampHour;
   const currentTimestampMinutes = currentDateTime.getMinutes();
@@ -24,8 +25,13 @@ export async function fetchTemperature(sensor) {
     previousTimestampMinutes += 60;
   };
 
-  const currentTimestamp = `${year}-${month}-${day}T${currentTimestampHour}:${currentTimestampMinutes}`;
-  const previousTimestamp = `${year}-${month}-${day}T${previousTimestampHour}:${previousTimestampMinutes}`;
+  if (previousTimestampHour < 0) {
+    previousTimestampDay -= 1;
+    previousTimestampHour += 24;
+  }
+
+  const currentTimestamp = `${year}-${month}-${currentTimestampDay}T${currentTimestampHour}:${currentTimestampMinutes}`;
+  const previousTimestamp = `${year}-${month}-${previousTimestampDay}T${previousTimestampHour}:${previousTimestampMinutes}`;
 
   try {
     response = await axios.get(

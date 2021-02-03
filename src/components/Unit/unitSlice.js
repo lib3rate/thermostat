@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 export const unitSlice = createSlice({
   name: 'unit',
   initialState: {
-    currentUnit: null,
+    currentUnit: 'Unit 100',
     isTurnedOn: false,
     mode: null,
     currentIndoorTemperature: null,
@@ -11,7 +11,7 @@ export const unitSlice = createSlice({
     desiredTemperature: null,
   },
   reducers: {
-    changeUnit: (state, action) => {
+    changeThermostatUnit: (state, action) => {
       state.currentUnit = action.payload;
     },
     switchPower: state => {
@@ -36,7 +36,7 @@ export const unitSlice = createSlice({
 });
 
 export const {
-  changeUnit,
+  changeThermostatUnit,
   switchPower,
   changeMode,
   setCurrentIndoorTemperature,
@@ -45,20 +45,21 @@ export const {
   decreaseDesiredTemperature
 } = unitSlice.actions;
 
-// The function below is called a thunk and allows us to perform async logic. It
-// can be dispatched like a regular action: `dispatch(incrementAsync(10))`. This
-// will call the thunk with the `dispatch` function as the first argument. Async
-// code can then be executed and other actions can be dispatched
-// export const incrementAsync = amount => dispatch => {
-//   setTimeout(() => {
-//     dispatch(incrementByAmount(amount));
-//   }, 1000);
+// Asynchronous state mutations
+// export const setReceivedIndoorTemperature = temperature => dispatch => {
+//   dispatch(setCurrentIndoorTemperature(temperature));
 // };
 
-export const selectCurrentUnit = state => state.currentUnit.value;
-export const isTurnedOn = state => state.isTurnedOn.value;
-export const selectMode = state => state.mode.value;
-export const selectCurrentTemperature = state => state.currentTemperature.value;
-export const selectDesiredTemperature = state => state.desiredTemperature.value;
+// export const setReceivedOutdoorTemperature = temperature => dispatch => {
+//   dispatch(setCurrentOutdoorTemperature(temperature));
+// };
+
+// Selectors
+export const selectCurrentUnit = state => state.unit.currentUnit;
+export const isTurnedOn = state => state.unit.isTurnedOn;
+export const selectMode = state => state.unit.mode;
+export const selectCurrentIndoorTemperature = state => state.unit.currentIndoorTemperature;
+export const selectCurrentOutdoorTemperature = state => state.unit.currentOutdoorTemperature;
+export const selectDesiredTemperature = state => state.unit.desiredTemperature;
 
 export default unitSlice.reducer;
