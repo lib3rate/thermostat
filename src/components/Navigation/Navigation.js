@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from 'react-redux';
+import React from "react";
 
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
@@ -9,16 +8,12 @@ import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
+import NavigationItem from "./NavigationItem";
 import Unit from "../Unit/Unit";
-
-import { changeDrawerUnit, selectCurrentUnit } from './navigationSlice';
-import { changeThermostatUnit } from '../Unit/unitSlice';
 
 const appBarHeight = '4rem';
 const drawerWidth = 240;
@@ -59,25 +54,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function NavigationDrawer(props) {
-  useEffect(() => {
-  }, []);
-
-  const dispatch = useDispatch();
-
   const { window } = props;
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
-  const currentUnit = useSelector(selectCurrentUnit);
-
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
-  };
-
-  const changeUnit = unit => {
-    dispatch(changeDrawerUnit(unit));
-    dispatch(changeThermostatUnit(unit));
   };
 
   const units = [
@@ -92,9 +75,10 @@ function NavigationDrawer(props) {
       <Divider />
       <List>
         {units.map(unit => (
-          <ListItem button key={unit} onClick={() => changeUnit(unit)}>
-            <ListItemText primary={unit} />
-          </ListItem>
+          <NavigationItem
+            key={unit}
+            unit={unit}
+          />
         ))}
       </List>
     </div>

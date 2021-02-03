@@ -18,7 +18,7 @@ export async function fetchTemperature(sensor) {
   const currentTimestampHour = currentDateTime.getHours();
   let previousTimestampHour = currentTimestampHour;
   const currentTimestampMinutes = currentDateTime.getMinutes();
-  let previousTimestampMinutes = currentTimestampMinutes - 15;
+  let previousTimestampMinutes = currentTimestampMinutes - 17;
   
   if (currentTimestampMinutes < 15) {
     previousTimestampHour -= 1;
