@@ -13,8 +13,9 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
-import Unit from "./Unit/Unit";
+import Unit from "../Unit/Unit";
 
+const appBarHeight = '4rem';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -29,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
     [theme.breakpoints.up('sm')]: {
-      width: `calc(100% - ${drawerWidth}px)`,
+      height: appBarHeight,
       marginLeft: drawerWidth,
     },
   },
@@ -43,10 +44,12 @@ const useStyles = makeStyles((theme) => ({
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
     width: drawerWidth,
+    marginTop: appBarHeight,
   },
   content: {
-    flexGrow: 1,
+    marginTop: appBarHeight,
     padding: theme.spacing(3),
+    flexGrow: 1,
   },
 }));
 
@@ -66,7 +69,9 @@ function NavigationDrawer(props) {
 
   const drawer = (
     <div>
-      <div className={classes.toolbar} />
+      <div className={classes.toolbar}>
+        Building Units ({units.length})
+      </div>
       <Divider />
       <List>
         {units.map(unit => (
@@ -96,8 +101,7 @@ function NavigationDrawer(props) {
           </IconButton>
         </Toolbar>
       </AppBar>
-      <nav className={classes.drawer} aria-label="mailbox folders">
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+      <nav className={classes.drawer} aria-label="building units">
         <Hidden smUp implementation="css">
           <Drawer
             container={container}
@@ -136,10 +140,6 @@ function NavigationDrawer(props) {
 }
 
 NavigationDrawer.propTypes = {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
   window: PropTypes.func,
 };
 

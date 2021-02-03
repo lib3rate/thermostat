@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-import NavigationDrawer from "./components/NavigationDrawer";
+import NavigationDrawer from "./components/Navigation/Navigation";
 
 import './App.css';
 
