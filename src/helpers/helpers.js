@@ -40,6 +40,14 @@ export async function fetchTemperature(sensor) {
     console.error(errorText);
     console.error(e);
     response = {};
+    return response;
   }
-  return response;
+
+  let sum = 0;
+  for (let datapoint of response.data_points) {
+    sum += Number(datapoint.value);
+  };
+  const average = (sum / response.data_points.length).toFixed(2);
+
+  return average;
 };

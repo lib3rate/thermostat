@@ -6,7 +6,8 @@ export const unitSlice = createSlice({
     currentUnit: null,
     isTurnedOn: false,
     mode: null,
-    currentTemperature: null,
+    currentIndoorTemperature: null,
+    currentOutdoorTemperature: null,
     desiredTemperature: null,
   },
   reducers: {
@@ -19,11 +20,17 @@ export const unitSlice = createSlice({
     changeMode: (state, action) => {
       state.mode = action.payload;
     },
+    setCurrentIndoorTemperature: (state, action) => {
+      state.currentIndoorTemperature = action.payload;
+    },
+    setCurrentOutdoorTemperature: (state, action) => {
+      state.currentOutdoorTemperature = action.payload;
+    },
     increaseDesiredTemperature: state => {
-      state.desiredTemperature += 1;
+      state.currentIndoorTemperature += 1;
     },
     decreaseDesiredTemperature: state => {
-      state.desiredTemperature -= 1;
+      state.currentIndoorTemperature -= 1;
     }
   },
 });
@@ -32,6 +39,8 @@ export const {
   changeUnit,
   switchPower,
   changeMode,
+  setCurrentIndoorTemperature,
+  setCurrentOutdoorTemperature,
   increaseDesiredTemperature,
   decreaseDesiredTemperature
 } = unitSlice.actions;
