@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 
-import initialCall from "../../helpers/helpers";
+import { fetchTemperature } from "../../helpers/helpers";
 
 function Unit() {
   useEffect(async () => {
-    const data = await initialCall();
-    console.log(data);
+    const currentTemperatureData = await fetchTemperature('temperature-1');
+    console.log(currentTemperatureData);
   }, []);
 
   // const datapoints = data.data_points;
