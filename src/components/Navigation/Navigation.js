@@ -1,5 +1,4 @@
 import React from "react";
-
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -53,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function NavigationDrawer(props) {
+export default function NavigationDrawer(props) {
   const { window } = props;
   const classes = useStyles();
   const theme = useTheme();
@@ -144,4 +143,4 @@ NavigationDrawer.propTypes = {
   window: PropTypes.func,
 };
 
-export default NavigationDrawer;
+// export default NavigationDrawer;

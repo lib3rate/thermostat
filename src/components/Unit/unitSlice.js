@@ -56,7 +56,7 @@ export const {
 
 // Selectors
 export const selectCurrentUnit = state => state.unit.currentUnit;
-export const isTurnedOn = state => state.unit.isTurnedOn;
+export const selectPower = state => state.unit.isTurnedOn;
 export const selectMode = state => state.unit.mode;
 export const selectCurrentIndoorTemperature = state => state.unit.currentIndoorTemperature;
 export const selectCurrentOutdoorTemperature = state => state.unit.currentOutdoorTemperature;

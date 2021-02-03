@@ -1,29 +1,26 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 
+import PowerButton from "../Buttons/PowerButton";
+import ModeButton from "../Buttons/ModeButton";
+
 import {
-  changeUnit,
-  switchPower,
-  changeMode,
   setCurrentIndoorTemperature,
   setCurrentOutdoorTemperature,
-  increaseDesiredTemperature,
-  decreaseDesiredTemperature,
+  // increaseDesiredTemperature,
+  // decreaseDesiredTemperature,
   selectCurrentUnit,
-  isTurnedOn,
-  selectMode,
+  // selectPower,
+  // selectMode,
   selectCurrentIndoorTemperature,
-  selectCurrentOutdoorTemperature,
-  selectDesiredTemperature
+  // selectCurrentOutdoorTemperature,
+  // selectDesiredTemperature
 } from './unitSlice';
 
 import { fetchTemperature } from "../../helpers/helpers";
 
-function Unit() {
+export default function Unit() {
   const dispatch = useDispatch();
-
-  const currentUnit = useSelector(selectCurrentUnit);
-  const currentIndoorTemperature = useSelector(selectCurrentIndoorTemperature);
 
   useEffect(async () => {
     const averageIndoorTemperature = await fetchTemperature('temperature-1');
@@ -33,16 +30,30 @@ function Unit() {
     dispatch(setCurrentOutdoorTemperature(averageOutdoorTemperature));
   }, []);
 
+  const currentUnit = useSelector(selectCurrentUnit);
+  const currentIndoorTemperature = useSelector(selectCurrentIndoorTemperature);
+
+  const modes = ['Auto', 'Cooling', 'Heating', 'Ventilation'];
+
   return (
     <div>
       <div>
         {currentUnit} - Thermostat
       </div>
+      <PowerButton/>
       <div>
         {currentIndoorTemperature}
+      </div>
+      <div>
+        {modes.map(mode => (
+          <ModeButton
+            key={mode}
+            mode={mode}
+          />
+        ))}
       </div>
     </div>
   );
 }
 
-export default Unit;
+// export default Unit;

@@ -1,13 +1,12 @@
 import React from "react";
 import { useDispatch, useSelector } from 'react-redux';
-
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
 import { changeDrawerUnit, selectCurrentUnit } from './navigationSlice';
 import { changeThermostatUnit } from '../Unit/unitSlice';
 
-function NavigationItem(props) {
+export default function NavigationItem(props) {
   const dispatch = useDispatch();
 
   const currentUnit = useSelector(selectCurrentUnit);
@@ -18,12 +17,12 @@ function NavigationItem(props) {
   };
 
   function checkIfSelected() {
-    if (props.unit === currentUnit) {
-      return true;
-    } else {
-      return false;
-    }
-    // (props.selectedUnit === currentUnit) ? true : false;
+    // if (props.unit === currentUnit) {
+    //   return true;
+    // } else {
+    //   return false;
+    // }
+    return props.unit === currentUnit ? true : false;
   }
 
   return (
@@ -37,4 +36,4 @@ function NavigationItem(props) {
   );
 }
 
-export default NavigationItem;
+// export default NavigationItem;
