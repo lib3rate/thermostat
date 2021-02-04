@@ -8,8 +8,6 @@ import Temperature from "../Temperature/Temperature";
 import {
   setCurrentIndoorTemperature,
   setCurrentOutdoorTemperature,
-  // increaseDesiredTemperature,
-  // decreaseDesiredTemperature,
   selectCurrentUnit,
   selectMode,
   // selectCurrentIndoorTemperature,

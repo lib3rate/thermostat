@@ -1,8 +1,5 @@
 import axios from "axios";
 
-// http://api-staging.paritygo.com/sensors/api/sensors/humidity-1/?begin=<timestamp1>&end=<timestamp2>
-// http://api-staging.paritygo.com/sensors/api/sensors/humidity/?begin=2020-02-14T11:00&end=2020-02-14T11:30
-
 // https://api-staging.paritygo.com/sensors/api/thermostat/register/
 
 export async function fetchTemperature(sensor) {
@@ -53,7 +50,7 @@ export async function fetchTemperature(sensor) {
   for (let datapoint of response.data_points) {
     sum += Number(datapoint.value);
   };
-  const average = (sum / response.data_points.length).toFixed(2);
+  const average = (sum / response.data_points.length).toFixed(0);
 
-  return average;
+  return Number(average);
 };
