@@ -12,7 +12,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 import NavigationItem from "./NavigationItem";
-import Unit from "../Unit/Unit";
+import Thermostat from "../Thermostat/Thermostat";
 
 const appBarHeight = '4rem';
 const drawerWidth = 240;
@@ -133,7 +133,7 @@ export default function NavigationDrawer(props) {
       </nav>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <Unit/>
+        <Thermostat/>
       </main>
     </div>
   );

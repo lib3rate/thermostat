@@ -4,7 +4,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
 import { changeDrawerUnit, selectCurrentUnit } from './navigationSlice';
-import { changeThermostatUnit } from '../Unit/unitSlice';
+import { changeThermostatUnit } from '../Thermostat/thermostatSlice';
 
 export default function NavigationItem(props) {
   const dispatch = useDispatch();

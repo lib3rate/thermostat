@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 
 import ModeButton from "../Buttons/ModeButton";
+import Temperature from "../Temperature/Temperature";
 
 import {
   setCurrentIndoorTemperature,
@@ -10,12 +11,11 @@ import {
   // increaseDesiredTemperature,
   // decreaseDesiredTemperature,
   selectCurrentUnit,
-  // selectPower,
   selectMode,
-  selectCurrentIndoorTemperature,
+  // selectCurrentIndoorTemperature,
   // selectCurrentOutdoorTemperature,
   // selectDesiredTemperature
-} from './unitSlice';
+} from './thermostatSlice';
 
 import { fetchTemperature } from "../../helpers/helpers";
 
@@ -23,17 +23,15 @@ const useStyles = makeStyles((theme) => ({
   modeInterface: {
     display: 'flex'
   },
-  temperature: {
-    width: '50%'
-  },
   modeButtons: {
     display: 'flex',
     flexDirection: 'column',
+    alignItems: 'center',
     width: '50%'
   },
 }));
 
-export default function Unit() {
+export default function Thermostat() {
   const dispatch = useDispatch();
   const classes = useStyles();
 
@@ -46,7 +44,7 @@ export default function Unit() {
   }, []);
 
   const currentUnit = useSelector(selectCurrentUnit);
-  const currentIndoorTemperature = useSelector(selectCurrentIndoorTemperature);
+  // const currentIndoorTemperature = useSelector(selectCurrentIndoorTemperature);
   const currentMode = useSelector(selectMode);
 
   function isTurnedOff() {
@@ -65,10 +63,12 @@ export default function Unit() {
         isDisabled={isTurnedOff()}
       />
       <div className={classes.modeInterface}>
-        <div className={classes.temperature}>
+        <Temperature />
+        {/* <div className={classes.temperature}>
           {currentIndoorTemperature}
-        </div>
+        </div> */}
         <div className={classes.modeButtons}>
+          Thermostat mode
           {modes.map(mode => (
             <ModeButton
               key={mode}

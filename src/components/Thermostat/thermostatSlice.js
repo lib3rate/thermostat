@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export const unitSlice = createSlice({
-  name: 'unit',
+export const thermostatSlice = createSlice({
+  name: 'thermostat',
   initialState: {
     currentUnit: 'Unit 100',
     // isTurnedOn: false,
@@ -43,7 +43,7 @@ export const {
   setCurrentOutdoorTemperature,
   increaseDesiredTemperature,
   decreaseDesiredTemperature
-} = unitSlice.actions;
+} = thermostatSlice.actions;
 
 // Asynchronous state mutations
 // export const setReceivedIndoorTemperature = temperature => dispatch => {
@@ -55,11 +55,11 @@ export const {
 // };
 
 // Selectors
-export const selectCurrentUnit = state => state.unit.currentUnit;
-// export const selectPower = state => state.unit.isTurnedOn;
-export const selectMode = state => state.unit.mode;
-export const selectCurrentIndoorTemperature = state => state.unit.currentIndoorTemperature;
-export const selectCurrentOutdoorTemperature = state => state.unit.currentOutdoorTemperature;
-export const selectDesiredTemperature = state => state.unit.desiredTemperature;
+export const selectCurrentUnit = state => state.thermostat.currentUnit;
+// export const selectPower = state => state.thermostat.isTurnedOn;
+export const selectMode = state => state.thermostat.mode;
+export const selectCurrentIndoorTemperature = state => state.thermostat.currentIndoorTemperature;
+export const selectCurrentOutdoorTemperature = state => state.thermostat.currentOutdoorTemperature;
+export const selectDesiredTemperature = state => state.thermostat.desiredTemperature;
 
-export default unitSlice.reducer;
+export default thermostatSlice.reducer;
