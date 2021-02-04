@@ -4,12 +4,10 @@ import NavigationDrawer from "./components/Navigation/Navigation";
 
 import './App.css';
 
-function App() {
+export default function App() {
   return (
     <div className="App">
       <NavigationDrawer/>
     </div>
   );
 }
-
-export default App;

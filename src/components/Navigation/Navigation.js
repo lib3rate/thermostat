@@ -142,5 +142,3 @@ export default function NavigationDrawer(props) {
 NavigationDrawer.propTypes = {
   window: PropTypes.func,
 };
-
-// export default NavigationDrawer;

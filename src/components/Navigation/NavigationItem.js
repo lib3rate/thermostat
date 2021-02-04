@@ -17,11 +17,6 @@ export default function NavigationItem(props) {
   };
 
   function checkIfSelected() {
-    // if (props.unit === currentUnit) {
-    //   return true;
-    // } else {
-    //   return false;
-    // }
     return props.unit === currentUnit ? true : false;
   }
 
@@ -35,5 +30,3 @@ export default function NavigationItem(props) {
     </ListItem>
   );
 }
-
-// export default NavigationItem;

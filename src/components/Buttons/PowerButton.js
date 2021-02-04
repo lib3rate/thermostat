@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
 
 import {
   switchPower,
@@ -16,8 +17,20 @@ import {
   // selectDesiredTemperature
 } from '../Unit/unitSlice';
 
+const useStyles = makeStyles((theme) => ({
+  button: {
+    margin: '1rem 0 3rem 0',
+    width: '8rem',
+    background: "white"
+  },
+  text: {
+    color: "red"
+  },
+}));
+
 export default function PowerButton(props) {
   const dispatch = useDispatch();
+  const classes = useStyles();
 
   const isTurnedOn = useSelector(selectPower);
 
@@ -28,10 +41,12 @@ export default function PowerButton(props) {
   return (
     <Button
       variant="contained"
-      color="primary"
       onClick={() => dispatch(switchPower())}
+      className={classes.button}
     >
-      {powerMode()}
+      <span className={classes.text}>
+        {powerMode()}
+      </span>
     </Button>
   );
 }
