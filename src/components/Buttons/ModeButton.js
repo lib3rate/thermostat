@@ -10,7 +10,6 @@ import {
   // increaseDesiredTemperature,
   // decreaseDesiredTemperature,
   // selectCurrentUnit,
-  // selectPower,
   selectMode,
   // selectCurrentIndoorTemperature,
   // selectCurrentOutdoorTemperature,
@@ -18,10 +17,30 @@ import {
 } from '../Unit/unitSlice';
 
 const useStyles = makeStyles((theme) => ({
-  button: {
+  modeButton: {
     margin: '0.25rem 0',
-    width: '12rem'
+    width: '12rem',
+    background: "white"
   },
+  powerButton: {
+    margin: '1rem 0 3rem 0',
+    width: '8rem',
+    background: "white"
+  },
+  selectedMode: {
+    margin: '0.25rem 0',
+    width: '12rem',
+    background: "blue"
+  },
+  modeButtonText: {
+    color: "blue"
+  },
+  powerButtonText: {
+    color: "red"
+  },
+  selectedModeText: {
+    color: "white"
+  }
 }));
 
 export default function ModeButton(props) {
@@ -30,14 +49,36 @@ export default function ModeButton(props) {
 
   const currentMode = useSelector(selectMode);
 
+  function selectButtonStyle() {
+    if (props.mode === 'Turn off') {
+      return classes.powerButton;
+    } else if (props.mode === currentMode) {
+      return classes.selectedMode;
+    } else {
+      return classes.modeButton;
+    }
+  };
+
+  function selectTextStyle() {
+    if (props.mode === 'Turn off') {
+      return classes.powerButtonText;
+    } else if (props.mode === currentMode) {
+      return classes.selectedModeText;
+    } else {
+      return classes.modeButtonText;
+    }
+  };
+
   return (
     <Button
       variant="contained"
-      color="primary"
-      onClick={() => changeMode(props.mode)}
-      className={classes.button}
+      onClick={() => dispatch(changeMode(props.mode))}
+      className={selectButtonStyle()}
+      disabled={props.isDisabled}
     >
-      {props.mode}
+      <span className={selectTextStyle()}>
+        {props.mode}
+      </span>
     </Button>
   );
 }

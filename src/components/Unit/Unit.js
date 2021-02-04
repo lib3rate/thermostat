@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 
-import PowerButton from "../Buttons/PowerButton";
 import ModeButton from "../Buttons/ModeButton";
 
 import {
@@ -12,7 +11,7 @@ import {
   // decreaseDesiredTemperature,
   selectCurrentUnit,
   // selectPower,
-  // selectMode,
+  selectMode,
   selectCurrentIndoorTemperature,
   // selectCurrentOutdoorTemperature,
   // selectDesiredTemperature
@@ -48,6 +47,11 @@ export default function Unit() {
 
   const currentUnit = useSelector(selectCurrentUnit);
   const currentIndoorTemperature = useSelector(selectCurrentIndoorTemperature);
+  const currentMode = useSelector(selectMode);
+
+  function isTurnedOff() {
+    return currentMode === 'Turn off' ? true : false;
+  }
 
   const modes = ['Auto', 'Cooling', 'Heating', 'Ventilation'];
 
@@ -56,7 +60,10 @@ export default function Unit() {
       <div>
         {currentUnit} - Thermostat
       </div>
-      <PowerButton/>
+      <ModeButton
+        mode='Turn off'
+        isDisabled={isTurnedOff()}
+      />
       <div className={classes.modeInterface}>
         <div className={classes.temperature}>
           {currentIndoorTemperature}
@@ -66,6 +73,7 @@ export default function Unit() {
             <ModeButton
               key={mode}
               mode={mode}
+              isDisabled={false}
             />
           ))}
         </div>
