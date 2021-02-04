@@ -5,8 +5,7 @@ export const thermostatSlice = createSlice({
   initialState: {
     id: '',
     currentUnit: 'Unit 100',
-    // isTurnedOn: false,
-    mode: null,
+    mode: 'Turn off',
     currentIndoorTemperature: null,
     currentOutdoorTemperature: null,
     desiredTemperature: null,
@@ -18,10 +17,7 @@ export const thermostatSlice = createSlice({
     changeThermostatUnit: (state, action) => {
       state.currentUnit = action.payload;
     },
-    // switchPower: state => {
-    //   state.isTurnedOn ? state.isTurnedOn = false : state.isTurnedOn = true;
-    // },
-    changeMode: (state, action) => {
+    setMode: (state, action) => {
       state.mode = action.payload;
     },
     setCurrentIndoorTemperature: (state, action) => {
@@ -50,8 +46,7 @@ export const thermostatSlice = createSlice({
 export const {
   registerThermostat,
   changeThermostatUnit,
-  // switchPower,
-  changeMode,
+  setMode,
   setCurrentIndoorTemperature,
   setCurrentOutdoorTemperature,
   increaseDesiredTemperature,
@@ -70,7 +65,6 @@ export const {
 // Selectors
 export const selectId = state => state.thermostat.id;
 export const selectCurrentUnit = state => state.thermostat.currentUnit;
-// export const selectPower = state => state.thermostat.isTurnedOn;
 export const selectMode = state => state.thermostat.mode;
 export const selectCurrentIndoorTemperature = state => state.thermostat.currentIndoorTemperature;
 export const selectCurrentOutdoorTemperature = state => state.thermostat.currentOutdoorTemperature;

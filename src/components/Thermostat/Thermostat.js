@@ -10,6 +10,7 @@ import {
   setCurrentIndoorTemperature,
   setCurrentOutdoorTemperature,
   selectCurrentUnit,
+  selectId,
   selectMode,
   // selectCurrentIndoorTemperature,
   // selectCurrentOutdoorTemperature,
@@ -34,16 +35,23 @@ export default function Thermostat() {
   const dispatch = useDispatch();
   const classes = useStyles();
 
-  const thermostatId = localStorage.getItem('id');
+  const localStorageId = localStorage.getItem('id');
+  const thermostatId = useSelector(selectId);
 
   useEffect(async () => {
-    if (!thermostatId) {
+    // Register thermostat if there is no thermostat id stored locally
+    if (!localStorageId) {
       const response = await register();
       const id = response.uid_hash;
 
       dispatch(registerThermostat(id));
       localStorage.setItem('id', id);
     }
+
+    // Save the thermostat id in the state if it is stored locally but not in the state
+    if (!thermostatId) {
+      dispatch(registerThermostat(localStorageId))
+    };
 
     const averageIndoorTemperature = await fetchTemperature('temperature-1');
     dispatch(setCurrentIndoorTemperature(averageIndoorTemperature));

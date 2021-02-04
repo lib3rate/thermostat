@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { changeMode, selectMode } from '../Thermostat/thermostatSlice';
+import { setMode, selectId, selectMode } from '../Thermostat/thermostatSlice';
+import { changeMode } from "../../helpers/helpers";
 
 const useStyles = makeStyles((theme) => ({
   modeButton: {
@@ -36,7 +37,34 @@ export default function ModeButton(props) {
   const dispatch = useDispatch();
   const classes = useStyles();
 
+  const id = useSelector(selectId);
   const currentMode = useSelector(selectMode);
+
+  async function changeThermostatMode() {
+    let mode = null;
+
+    if (props.mode === 'Turn off') {
+      mode = 'off';
+    } else if (props.mode === 'Heating') {
+      mode = 'heat';
+    } else if (props.mode === 'Cooling') {
+      mode = 'cool';
+    } else if (props.mode === 'Ventilation') {
+      mode = 'Auto_standby';
+    } else if (props.mode === 'Auto') {
+      mode = 'auto_heat';
+    } else {
+      mode = 'auto_cool';
+    }
+
+    const response = await changeMode(id, mode);
+
+    if (response.state === mode) {
+      dispatch(setMode(props.mode));
+    } else {
+      alert('Could not change thermostat mode');
+    }
+  };
 
   function selectButtonStyle() {
     if (props.mode === 'Turn off') {
@@ -61,7 +89,7 @@ export default function ModeButton(props) {
   return (
     <Button
       variant="contained"
-      onClick={() => dispatch(changeMode(props.mode))}
+      onClick={changeThermostatMode}
       className={selectButtonStyle()}
       disabled={props.isDisabled}
     >

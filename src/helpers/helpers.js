@@ -17,7 +17,6 @@ export async function register() {
     console.error(errorText);
     console.error(e);
     response = {};
-    return response;
   }
 
   return response;
@@ -74,4 +73,27 @@ export async function fetchTemperature(sensor) {
   const average = (sum / response.data_points.length).toFixed(0);
 
   return Number(average);
+};
+
+export async function changeMode(id, mode) {
+  let response = {};
+  const errorText = 'Could not change thermostat mode';
+
+  try {
+    response = await axios.patch(
+      `https://api-staging.paritygo.com/sensors/api/thermostat/${id}/`,
+      { "state": mode }
+    );
+    if (response.status === 200) {
+      response = response.data;
+    } else {
+      console.error(errorText);
+    }
+  } catch (e) {
+    console.error(errorText);
+    console.error(e);
+    response = {};
+  }
+
+  return response;
 };
