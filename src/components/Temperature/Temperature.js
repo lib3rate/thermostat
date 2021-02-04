@@ -40,9 +40,7 @@ export default function Temperature(props) {
       >
         <AddIcon />
       </Fab>
-      {/* <div className={classes.temperature}> */}
-        <span className={classes.temperature}>{currentIndoorTemperature}°</span>
-      {/* </div> */}
+      <span className={classes.temperature}>{currentIndoorTemperature}°</span>
       <Fab
         size="small"
         color="primary"

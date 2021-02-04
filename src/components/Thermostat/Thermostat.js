@@ -6,6 +6,7 @@ import ModeButton from "../Buttons/ModeButton";
 import Temperature from "../Temperature/Temperature";
 
 import {
+  registerThermostat,
   setCurrentIndoorTemperature,
   setCurrentOutdoorTemperature,
   selectCurrentUnit,
@@ -15,7 +16,7 @@ import {
   // selectDesiredTemperature
 } from './thermostatSlice';
 
-import { fetchTemperature } from "../../helpers/helpers";
+import { register, fetchTemperature } from "../../helpers/helpers";
 
 const useStyles = makeStyles((theme) => ({
   modeInterface: {
@@ -33,7 +34,17 @@ export default function Thermostat() {
   const dispatch = useDispatch();
   const classes = useStyles();
 
+  const thermostatId = localStorage.getItem('id');
+
   useEffect(async () => {
+    if (!thermostatId) {
+      const response = await register();
+      const id = response.uid_hash;
+
+      dispatch(registerThermostat(id));
+      localStorage.setItem('id', id);
+    }
+
     const averageIndoorTemperature = await fetchTemperature('temperature-1');
     dispatch(setCurrentIndoorTemperature(averageIndoorTemperature));
 
@@ -42,12 +53,11 @@ export default function Thermostat() {
   }, []);
 
   const currentUnit = useSelector(selectCurrentUnit);
-  // const currentIndoorTemperature = useSelector(selectCurrentIndoorTemperature);
   const currentMode = useSelector(selectMode);
 
   function isTurnedOff() {
     return currentMode === 'Turn off' ? true : false;
-  }
+  };
 
   const modes = ['Auto', 'Cooling', 'Heating', 'Ventilation'];
 
@@ -62,9 +72,6 @@ export default function Thermostat() {
       />
       <div className={classes.modeInterface}>
         <Temperature />
-        {/* <div className={classes.temperature}>
-          {currentIndoorTemperature}
-        </div> */}
         <div className={classes.modeButtons}>
           Thermostat mode
           {modes.map(mode => (

@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 export const thermostatSlice = createSlice({
   name: 'thermostat',
   initialState: {
+    id: '',
     currentUnit: 'Unit 100',
     // isTurnedOn: false,
     mode: null,
@@ -11,6 +12,9 @@ export const thermostatSlice = createSlice({
     desiredTemperature: null,
   },
   reducers: {
+    registerThermostat: (state, action) => {
+      state.id = action.payload;
+    },
     changeThermostatUnit: (state, action) => {
       state.currentUnit = action.payload;
     },
@@ -44,6 +48,7 @@ export const thermostatSlice = createSlice({
 });
 
 export const {
+  registerThermostat,
   changeThermostatUnit,
   // switchPower,
   changeMode,
@@ -63,6 +68,7 @@ export const {
 // };
 
 // Selectors
+export const selectId = state => state.thermostat.id;
 export const selectCurrentUnit = state => state.thermostat.currentUnit;
 // export const selectPower = state => state.thermostat.isTurnedOn;
 export const selectMode = state => state.thermostat.mode;

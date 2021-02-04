@@ -1,6 +1,27 @@
 import axios from "axios";
 
-// https://api-staging.paritygo.com/sensors/api/thermostat/register/
+export async function register() {
+  let response = {};
+  const errorText = 'Could not register thermostat';
+
+  try {
+    response = await axios.post(
+      'https://api-staging.paritygo.com/sensors/api/thermostat/register/'
+    );
+    if (response.status === 201) {
+      response = response.data;
+    } else {
+      console.error(errorText);
+    }
+  } catch (e) {
+    console.error(errorText);
+    console.error(e);
+    response = {};
+    return response;
+  }
+
+  return response;
+};
 
 export async function fetchTemperature(sensor) {
   let response = {};
