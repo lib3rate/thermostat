@@ -84,19 +84,19 @@ export default function Temperature(props) {
             <Fab
               size="small"
               color="primary"
-              aria-label="increase"
-              onClick={() => dispatch(increaseDesiredTemperature())}
+              aria-label="decrease"
+              onClick={()=>dispatch(decreaseDesiredTemperature())}
             >
-              <AddIcon />
+              <RemoveIcon />
             </Fab>
             <span className={classes.desiredTemperature}>{desiredTemperature}°</span>
             <Fab
               size="small"
               color="primary"
-              aria-label="decrease"
-              onClick={()=>dispatch(decreaseDesiredTemperature())}
+              aria-label="increase"
+              onClick={() => dispatch(increaseDesiredTemperature())}
             >
-              <RemoveIcon />
+              <AddIcon />
             </Fab>
           </div>
           <span>{checkAutoType()}</span>

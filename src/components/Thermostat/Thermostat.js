@@ -61,6 +61,11 @@ export default function Thermostat() {
     const averageOutdoorTemperature = await fetchTemperature('outdoor-1');
     dispatch(setCurrentOutdoorTemperature(averageOutdoorTemperature));
 
+    // Update the current temperature every 5 minutes
+    setInterval(async () => {
+      let updatedIndoorTemperature = await fetchTemperature('temperature-1');
+      dispatch(setCurrentIndoorTemperature(updatedIndoorTemperature));
+    }, 300000);
   }, []);
 
   const currentUnit = useSelector(selectCurrentUnit);
