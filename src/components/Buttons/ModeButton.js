@@ -63,7 +63,7 @@ export default function ModeButton(props) {
       result = 'cool';
     } else if (props.text === 'Auto') {
       if (currentIndoorTemperature > desiredTemperature) {
-        currentOutdoorTemperature < 0 ? mode = 'auto_standby' : mode = 'auto_cool';
+        currentOutdoorTemperature < 0 ? result = 'auto_standby' : result = 'auto_cool';
       } else if (currentIndoorTemperature < desiredTemperature) {
         result = 'auto_heat';
       } else if (currentIndoorTemperature === desiredTemperature) {
