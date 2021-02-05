@@ -26,6 +26,9 @@ export const thermostatSlice = createSlice({
     setCurrentOutdoorTemperature: (state, action) => {
       state.currentOutdoorTemperature = action.payload;
     },
+    setDesiredTemperature: (state, action) => {
+      state.desiredTemperature = action.payload;
+    },
     increaseDesiredTemperature: state => {
       state.desiredTemperature
         ? state.desiredTemperature = state.desiredTemperature
@@ -49,6 +52,7 @@ export const {
   setMode,
   setCurrentIndoorTemperature,
   setCurrentOutdoorTemperature,
+  setDesiredTemperature,
   increaseDesiredTemperature,
   decreaseDesiredTemperature
 } = thermostatSlice.actions;

@@ -9,6 +9,7 @@ import {
   registerThermostat,
   setCurrentIndoorTemperature,
   setCurrentOutdoorTemperature,
+  setDesiredTemperature,
   selectCurrentUnit,
   selectId,
   selectMode,
@@ -55,9 +56,11 @@ export default function Thermostat() {
 
     const averageIndoorTemperature = await fetchTemperature('temperature-1');
     dispatch(setCurrentIndoorTemperature(averageIndoorTemperature));
+    dispatch(setDesiredTemperature(averageIndoorTemperature));
 
     const averageOutdoorTemperature = await fetchTemperature('outdoor-1');
     dispatch(setCurrentOutdoorTemperature(averageOutdoorTemperature));
+
   }, []);
 
   const currentUnit = useSelector(selectCurrentUnit);
@@ -67,7 +70,7 @@ export default function Thermostat() {
     return currentMode === 'Turn off' ? true : false;
   };
 
-  const modes = ['Auto', 'Cooling', 'Heating', 'Ventilation'];
+  const modes = ['Auto', 'Cooling', 'Heating'];
 
   return (
     <div>

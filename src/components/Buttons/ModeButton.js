@@ -49,10 +49,10 @@ export default function ModeButton(props) {
       mode = 'heat';
     } else if (props.mode === 'Cooling') {
       mode = 'cool';
-    } else if (props.mode === 'Ventilation') {
-      mode = 'Auto_standby';
     } else if (props.mode === 'Auto') {
-      mode = 'auto_heat';
+      mode = 'auto_standby';
+    // } else if (props.mode === 'Auto' && ) {
+    //   mode = 'auto_heat';
     } else {
       mode = 'auto_cool';
     }
