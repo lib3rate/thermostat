@@ -12,6 +12,7 @@ import {
   selectId,
   selectMode,
   selectCurrentIndoorTemperature,
+  selectCurrentOutdoorTemperature,
   selectDesiredTemperature
 } from '../Thermostat/thermostatSlice';
 import { setAlertOpen, setAlertMessage } from '../Alert/alertSlice';
@@ -50,46 +51,46 @@ export default function Temperature(props) {
   const id = useSelector(selectId);
   const currentMode = useSelector(selectMode);
   const currentIndoorTemperature = useSelector(selectCurrentIndoorTemperature);
+  const currentOutdoorTemperature = useSelector(selectCurrentOutdoorTemperature);
   const desiredTemperature = useSelector(selectDesiredTemperature);
 
   // let mode = null;
 
   // useEffect(() => {
-  //   mode = assignAutoMode();
   // }, [currentMode, desiredTemperature]);
 
-  function assignAutoMode() {
-    let result = null;
-
-    if (currentIndoorTemperature > desiredTemperature) {
-      result = 'auto_cool';
-    } else if (currentIndoorTemperature < desiredTemperature) {
-      result = 'auto_heat';
-    } else if (currentIndoorTemperature === desiredTemperature) {
-      result = 'auto_standby';
-    }
-
-    return result;
-  };
-
   function decreaseTemperature() {
+    dispatch(decreaseDesiredTemperature());
+    
     // Assign event listener to the button to change the mode only in Auto mode
     if (currentMode.includes('auto')) {
       changeThermostatMode();
     }
-    dispatch(decreaseDesiredTemperature());
   }
 
   function increaseTemperature() {
+    dispatch(increaseDesiredTemperature());
+    
     // Assign event listener to the button to change the mode only in Auto mode
     if (currentMode.includes('auto')) {
       changeThermostatMode();
     }
-    dispatch(increaseDesiredTemperature());
   }
 
   async function changeThermostatMode() {
-    const mode = assignAutoMode();
+    let mode = null;
+
+    console.log(currentIndoorTemperature);
+    console.log(desiredTemperature);
+
+    if (currentIndoorTemperature > desiredTemperature) {
+      currentOutdoorTemperature < 0 ? mode = 'auto_standby' : mode = 'auto_cool';
+    } else if (currentIndoorTemperature < desiredTemperature) {
+      mode = 'auto_heat';
+    } else if (currentIndoorTemperature === desiredTemperature) {
+      mode = 'auto_standby';
+    }
+
     console.log(mode);
 
     const response = await changeMode(id, mode);
@@ -98,7 +99,7 @@ export default function Temperature(props) {
     if (response.state === mode) {
       dispatch(setMode(mode));
     } else {
-      dispatch(setAlertMessage(`Could not change thermostat mode`));
+      dispatch(setAlertMessage('Could not change thermostat mode'));
       dispatch(setAlertOpen(true));
     }
   };

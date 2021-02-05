@@ -62,8 +62,11 @@ export async function fetchTemperature(sensor) {
   } catch (e) {
     console.error(errorText);
     console.error(e);
-    response = null;
-    return response;
+    return null;
+  }
+
+  if (response.data_points.length < 3) {
+    return null;
   }
 
   let sum = 0;
