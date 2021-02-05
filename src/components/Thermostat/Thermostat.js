@@ -17,6 +17,7 @@ import {
   // selectCurrentOutdoorTemperature,
   // selectDesiredTemperature
 } from './thermostatSlice';
+import { setAlertOpen, setAlertMessage } from '../Alert/alertSlice';
 
 import { register, fetchTemperature } from "../../helpers/helpers";
 
@@ -43,10 +44,15 @@ export default function Thermostat() {
     // Register thermostat if there is no thermostat id stored locally
     if (!localStorageId) {
       const response = await register();
-      const id = response.uid_hash;
 
-      dispatch(registerThermostat(id));
-      localStorage.setItem('id', id);
+      if (response.uid_hash) {
+        const id = response.uid_hash;
+        dispatch(registerThermostat(id));
+        localStorage.setItem('id', id);
+      } else {
+        dispatch(setAlertMessage('Could not register thermostat'));
+        dispatch(setAlertOpen(true));
+      }
     }
 
     // Save the thermostat id in the state if it is stored locally but not in the state
@@ -55,11 +61,23 @@ export default function Thermostat() {
     };
 
     const averageIndoorTemperature = await fetchTemperature('temperature-1');
-    dispatch(setCurrentIndoorTemperature(averageIndoorTemperature));
-    dispatch(setDesiredTemperature(averageIndoorTemperature));
+
+    if (averageIndoorTemperature) {
+      dispatch(setCurrentIndoorTemperature(averageIndoorTemperature));
+      dispatch(setDesiredTemperature(averageIndoorTemperature));
+    } else {
+      dispatch(setAlertMessage('Could not receive indoor temperature data'));
+      dispatch(setAlertOpen(true));
+    }
 
     const averageOutdoorTemperature = await fetchTemperature('outdoor-1');
-    dispatch(setCurrentOutdoorTemperature(averageOutdoorTemperature));
+
+    if (averageOutdoorTemperature) {
+      dispatch(setCurrentOutdoorTemperature(averageOutdoorTemperature));
+    } else {
+      dispatch(setAlertMessage('Could not receive outdoor temperature data'));
+      dispatch(setAlertOpen(true));
+    }   
 
     // Update the current temperature every 5 minutes
     setInterval(async () => {

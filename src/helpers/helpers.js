@@ -16,7 +16,7 @@ export async function register() {
   } catch (e) {
     console.error(errorText);
     console.error(e);
-    response = {};
+    response = null;
   }
 
   return response;
@@ -62,7 +62,7 @@ export async function fetchTemperature(sensor) {
   } catch (e) {
     console.error(errorText);
     console.error(e);
-    response = {};
+    response = null;
     return response;
   }
 
@@ -92,7 +92,7 @@ export async function changeMode(id, mode) {
   } catch (e) {
     console.error(errorText);
     console.error(e);
-    response = {};
+    response = null;
   }
 
   return response;

@@ -14,6 +14,7 @@ import {
   selectCurrentIndoorTemperature,
   selectDesiredTemperature
 } from '../Thermostat/thermostatSlice';
+import { setAlertOpen, setAlertMessage } from '../Alert/alertSlice';
 
 import { changeMode } from "../../helpers/helpers";
 
@@ -97,7 +98,8 @@ export default function Temperature(props) {
     if (response.state === mode) {
       dispatch(setMode(mode));
     } else {
-      alert('Could not change thermostat mode');
+      dispatch(setAlertMessage(`Could not change thermostat mode`));
+      dispatch(setAlertOpen(true));
     }
   };
 

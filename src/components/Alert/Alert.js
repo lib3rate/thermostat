@@ -21,7 +21,6 @@ export default function Alert() {
     }
 
     dispatch(setAlertOpen(false));
-    dispatch(setAlertMessage(''));
   };
 
   return (
