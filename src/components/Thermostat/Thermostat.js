@@ -72,10 +72,10 @@ export default function Thermostat() {
   const currentMode = useSelector(selectMode);
 
   function isTurnedOff() {
-    return currentMode === 'Turn off' ? true : false;
+    return currentMode === 'off' ? true : false;
   };
 
-  const modes = ['Auto', 'Cooling', 'Heating'];
+  const buttons = ['Auto', 'Cooling', 'Heating'];
 
   return (
     <div>
@@ -83,17 +83,17 @@ export default function Thermostat() {
         {currentUnit} - Thermostat
       </div>
       <ModeButton
-        mode='Turn off'
+        text='Turn off'
         isDisabled={isTurnedOff()}
       />
       <div className={classes.modeInterface}>
         <Temperature />
         <div className={classes.modeButtons}>
           Thermostat mode
-          {modes.map(mode => (
+          {buttons.map(button => (
             <ModeButton
-              key={mode}
-              mode={mode}
+              key={button}
+              text={button}
               isDisabled={false}
             />
           ))}

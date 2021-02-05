@@ -5,7 +5,7 @@ export const thermostatSlice = createSlice({
   initialState: {
     id: '',
     currentUnit: 'Unit 100',
-    mode: 'Turn off',
+    mode: 'off',
     currentIndoorTemperature: null,
     currentOutdoorTemperature: null,
     desiredTemperature: null,
