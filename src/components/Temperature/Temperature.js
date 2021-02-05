@@ -8,6 +8,7 @@ import RemoveIcon from '@material-ui/icons/Remove';
 import {
   increaseDesiredTemperature,
   decreaseDesiredTemperature,
+  selectMode,
   selectCurrentIndoorTemperature,
   selectDesiredTemperature
 } from '../Thermostat/thermostatSlice';
@@ -41,8 +42,33 @@ export default function Temperature(props) {
   const dispatch = useDispatch();
   const classes = useStyles();
 
+  const currentMode = useSelector(selectMode);
   const currentIndoorTemperature = useSelector(selectCurrentIndoorTemperature);
   const desiredTemperature = useSelector(selectDesiredTemperature);
+
+  function checkAutoType() {
+    let type = '';
+
+    // if (currentMode === 'Auto') {
+    //   if (currentIndoorTemperature > desiredTemperature) {
+    //     type = 'Cooling';
+    //   } else if (desiredTemperature > currentIndoorTemperature) {
+    //     type = 'Heating';
+    //   } else if (desiredTemperature === currentIndoorTemperature) {
+    //     type = 'Stand-by';
+    //   }
+    // }
+
+    if (currentMode === 'Auto' && currentIndoorTemperature > desiredTemperature) {
+      type = 'Cooling';
+    } else if (currentMode === 'Auto' && desiredTemperature > currentIndoorTemperature) {
+      type = 'Heating';
+    } else if (currentMode === 'Auto' && desiredTemperature === currentIndoorTemperature) {
+      type = 'Stand-by';
+    }
+
+    return type;
+  }
 
   return (
     <div className={classes.temperatureMain}>
@@ -73,6 +99,7 @@ export default function Temperature(props) {
               <RemoveIcon />
             </Fab>
           </div>
+          <span>{checkAutoType()}</span>
         </div>
       </div>
     </div>
