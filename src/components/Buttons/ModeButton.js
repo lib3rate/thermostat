@@ -8,8 +8,10 @@ import {
   selectId,
   selectMode,
   selectCurrentIndoorTemperature,
+  selectCurrentOutdoorTemperature,
   selectDesiredTemperature
 } from '../Thermostat/thermostatSlice';
+import { setAlertOpen, setAlertMessage } from '../Alert/alertSlice';
 
 import { changeMode } from "../../helpers/helpers";
 
@@ -47,89 +49,73 @@ export default function ModeButton(props) {
   const id = useSelector(selectId);
   const currentMode = useSelector(selectMode);
   const currentIndoorTemperature = useSelector(selectCurrentIndoorTemperature);
+  const currentOutdoorTemperature = useSelector(selectCurrentOutdoorTemperature);
   const desiredTemperature = useSelector(selectDesiredTemperature);
 
-  // let mode = null;
-
-  // if (props.text === 'Turn off') {
-  //   mode = 'off';
-  // } else if (props.text === 'Heating') {
-  //   mode = 'heat';
-  // } else if (props.text === 'Cooling') {
-  //   mode = 'cool';
-  // } else if (props.text === 'Auto') {
-  //   if (currentIndoorTemperature > desiredTemperature) {
-  //     mode = 'auto_cool';
-  //   } else if (desiredTemperature > currentIndoorTemperature) {
-  //     mode = 'auto_heat';
-  //   } else if (desiredTemperature === currentIndoorTemperature) {
-  //     mode = 'auto_standby';
-  //   }
-  // }
-
   function assignButtonMode() {
+    let result = null;
+
     if (props.text === 'Turn off') {
-      return 'off';
+      result = 'off';
     } else if (props.text === 'Heating') {
-      return 'heat';
+      result = 'heat';
     } else if (props.text === 'Cooling') {
-      return 'cool';
+      result = 'cool';
     } else if (props.text === 'Auto') {
       if (currentIndoorTemperature > desiredTemperature) {
-        return 'auto_cool';
-      } else if (currentIndoorTemperature > desiredTemperature) {
-        return 'auto_heat';
+        result = 'auto_cool';
+      } else if (currentIndoorTemperature < desiredTemperature) {
+        result = 'auto_heat';
       } else if (currentIndoorTemperature === desiredTemperature) {
-        return 'auto_standby';
+        result = 'auto_standby';
       }
     }
+    return result;
   };
-
-  const mode = assignButtonMode();
-
+  
   async function changeThermostatMode() {
+    const mode = assignButtonMode();
+    console.log(mode);
+
+    if (mode === 'cool' && currentOutdoorTemperature < 0) {
+      dispatch(setAlertMessage(`Cannot set the mode to "Cooling" - it's below 0˚C outside!`));
+      dispatch(setAlertOpen(true));
+      return;
+    }
+
     const response = await changeMode(id, mode);
 
     // Change mode in the state only if the request to the API succeeded
     if (response.state === mode) {
       dispatch(setMode(mode));
     } else {
-      alert('Could not change thermostat mode');
+      dispatch(setAlertMessage(`Could not change thermostat mode`));
+      dispatch(setAlertOpen(true));
     }
   };
 
   function selectButtonStyle() {
     if (props.text === 'Turn off') {
       return classes.powerButton;
-    } else if (props.text === 'Cooling' && mode === currentMode) {
+    } else if (props.text === 'Cooling' && currentMode === 'cool') {
       return classes.selected;
-    } else if (props.text === 'Heating' && mode === currentMode) {
+    } else if (props.text === 'Heating' && currentMode === 'heat') {
       return classes.selected;
     } else if (props.text === 'Auto' && currentMode.includes('auto')) {
-    // } else if (props.text === 'Auto' && (currentMode === 'auto_cool' || currentMode === 'auto_heat' || currentMode === 'auto_standby')) {
       return classes.selected;
     } else {
       return classes.modeButton;
     }
-    
-    // if (props.text === 'Turn off') {
-    //   return classes.powerButton;
-    // } else if (mode === currentMode) {
-    //   return classes.selectedMode;
-    // } else {
-    //   return classes.modeButton;
-    // }
   };
 
   function selectTextStyle() {
     if (props.text === 'Turn off') {
       return classes.powerButtonText;
-    } else if (props.text === 'Cooling' && mode === currentMode) {
+    } else if (props.text === 'Cooling' && currentMode === 'cool') {
       return classes.selectedText;
-    } else if (props.text === 'Heating' && mode === currentMode) {
+    } else if (props.text === 'Heating' && currentMode === 'heat') {
       return classes.selectedText;
     } else if (props.text === 'Auto' && currentMode.includes('auto')) {
-    // } else if (props.text === 'Auto' && (currentMode === 'auto_cool' || currentMode === 'auto_heat' || currentMode === 'auto_standby')) {
       return classes.selectedText;
     } else {
       return classes.modeButtonText;      

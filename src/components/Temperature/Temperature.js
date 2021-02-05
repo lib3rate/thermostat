@@ -51,25 +51,25 @@ export default function Temperature(props) {
   const currentIndoorTemperature = useSelector(selectCurrentIndoorTemperature);
   const desiredTemperature = useSelector(selectDesiredTemperature);
 
-  let mode = null;
+  // let mode = null;
 
-  useEffect(() => {
-    mode = assignAutoMode();
-  }, [currentMode, desiredTemperature]);
+  // useEffect(() => {
+  //   mode = assignAutoMode();
+  // }, [currentMode, desiredTemperature]);
 
   function assignAutoMode() {
-    if (currentIndoorTemperature > desiredTemperature) {
-      return 'auto_cool';
-    } else if (currentIndoorTemperature < desiredTemperature) {
-      return 'auto_heat';
-    } else if (currentIndoorTemperature === desiredTemperature) {
-      return 'auto_standby';
-    } else {
-      return null;
-    }
-  };
+    let result = null;
 
-  // const mode = assignAutoMode();
+    if (currentIndoorTemperature > desiredTemperature) {
+      result = 'auto_cool';
+    } else if (currentIndoorTemperature < desiredTemperature) {
+      result = 'auto_heat';
+    } else if (currentIndoorTemperature === desiredTemperature) {
+      result = 'auto_standby';
+    }
+
+    return result;
+  };
 
   function decreaseTemperature() {
     // Assign event listener to the button to change the mode only in Auto mode
@@ -88,6 +88,9 @@ export default function Temperature(props) {
   }
 
   async function changeThermostatMode() {
+    const mode = assignAutoMode();
+    console.log(mode);
+
     const response = await changeMode(id, mode);
 
     // Change mode in the state only if the request to the API succeeded
@@ -101,16 +104,6 @@ export default function Temperature(props) {
   // Assign which auto mode type should be displayed
   function displayAutoType() {
     let type = '';
-
-    // if (currentMode === 'Auto') {
-    //   if (currentIndoorTemperature > desiredTemperature) {
-    //     type = 'Cooling';
-    //   } else if (desiredTemperature > currentIndoorTemperature) {
-    //     type = 'Heating';
-    //   } else if (desiredTemperature === currentIndoorTemperature) {
-    //     type = 'Stand-by';
-    //   }
-    // }
 
     if (currentMode === 'auto_cool') {
       type = 'Cooling';
