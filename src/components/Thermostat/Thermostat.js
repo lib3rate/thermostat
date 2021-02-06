@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 700
   },
   modeInterface: {
-    display: 'flex'
+    display: 'flex',
   },
   modeButtons: {
     display: 'flex',

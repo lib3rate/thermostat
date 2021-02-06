@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from 'react-redux';
+import store from '../../app/store';
 import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
@@ -41,6 +42,10 @@ const useStyles = makeStyles((theme) => ({
   desiredTemperature: {
     margin: '1rem',
     fontSize: '2.5rem'
+  },
+  desiredTemperatureInterface: {
+    display: 'flex',
+    alignItems: 'center'
   }
 }));
 
@@ -53,11 +58,6 @@ export default function Temperature(props) {
   const currentIndoorTemperature = useSelector(selectCurrentIndoorTemperature);
   const currentOutdoorTemperature = useSelector(selectCurrentOutdoorTemperature);
   const desiredTemperature = useSelector(selectDesiredTemperature);
-
-  // let mode = null;
-
-  // useEffect(() => {
-  // }, [currentMode, desiredTemperature]);
 
   function decreaseTemperature() {
     dispatch(decreaseDesiredTemperature());
@@ -80,18 +80,16 @@ export default function Temperature(props) {
   async function changeThermostatMode() {
     let mode = null;
 
-    console.log(currentIndoorTemperature);
-    console.log(desiredTemperature);
+    // Getting the updated desired temperature from the store as Redux selector still has the old state data
+    const updatedDesiredTemperature = store.getState().thermostat.desiredTemperature;
 
-    if (currentIndoorTemperature > desiredTemperature) {
+    if (currentIndoorTemperature > updatedDesiredTemperature) {
       currentOutdoorTemperature < 0 ? mode = 'auto_standby' : mode = 'auto_cool';
-    } else if (currentIndoorTemperature < desiredTemperature) {
+    } else if (currentIndoorTemperature < updatedDesiredTemperature) {
       mode = 'auto_heat';
-    } else if (currentIndoorTemperature === desiredTemperature) {
+    } else if (currentIndoorTemperature === updatedDesiredTemperature) {
       mode = 'auto_standby';
     }
-
-    console.log(mode);
 
     const response = await changeMode(id, mode);
 
@@ -129,7 +127,7 @@ export default function Temperature(props) {
         </div>
         <div className={classes.temperatureDisplay}>
           <span>Desired temperature:</span>
-          <div>
+          <div className={classes.desiredTemperatureInterface}>
             <Fab
               size="small"
               color="primary"
