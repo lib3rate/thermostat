@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
+import store from '../../app/store';
 import { makeStyles } from '@material-ui/core/styles';
 
 import ModeButton from "../Buttons/ModeButton";
@@ -7,6 +8,7 @@ import Temperature from "../Temperature/Temperature";
 
 import {
   registerThermostat,
+  setMode,
   setCurrentIndoorTemperature,
   setCurrentOutdoorTemperature,
   setDesiredTemperature,
@@ -19,7 +21,7 @@ import {
 } from './thermostatSlice';
 import { setAlertOpen, setAlertMessage } from '../Alert/alertSlice';
 
-import { register, fetchTemperature } from "../../helpers/helpers";
+import { register, fetchTemperature, fetchCurrentStatus } from "../../helpers/helpers";
 
 const useStyles = makeStyles((theme) => ({
   unitTitle: {
@@ -71,6 +73,8 @@ export default function Thermostat() {
       dispatch(registerThermostat(localStorageId))
     };
 
+    loadStatus();
+
     const averageIndoorTemperature = await fetchTemperature('temperature-1');
 
     if (averageIndoorTemperature) {
@@ -99,6 +103,20 @@ export default function Thermostat() {
 
   const currentUnit = useSelector(selectCurrentUnit);
   const currentMode = useSelector(selectMode);
+
+  async function loadStatus() {
+    // Get the thermostat id from the store after opening browser as Redux selector still has the old state data with null id
+    const updatedId = store.getState().thermostat.id;
+    const currentStatus = await fetchCurrentStatus(updatedId);
+
+    if (currentStatus) {
+      const registeredMode = currentStatus.state;
+      dispatch(setMode(registeredMode));
+    } else {
+      dispatch(setAlertMessage('Could not receive current thermostat mode'));
+      dispatch(setAlertOpen(true));
+    }
+  }
 
   function isTurnedOff() {
     return currentMode === 'off' ? true : false;

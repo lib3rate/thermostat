@@ -79,6 +79,29 @@ export async function fetchTemperature(sensor) {
   return Number(average);
 };
 
+export async function fetchCurrentStatus(id) {
+  console.log(id);
+  let response = {};
+  const errorText = 'Could not receive current thermostat mode';
+
+  try {
+    response = await axios.get(
+      `https://api-staging.paritygo.com/sensors/api/thermostat/${id}/`
+    );
+    if (response.status === 200) {
+      response = response.data;
+    } else {
+      console.error(errorText);
+    }
+  } catch (e) {
+    console.error(errorText);
+    console.error(e);
+    response = null;
+  }
+
+  return response;
+};
+
 export async function changeMode(id, mode) {
   let response = {};
   const errorText = 'Could not change thermostat mode';
