@@ -1,8 +1,39 @@
-Thermostat
+# Thermostat
+
+## Description
 
 A front-end client that allows a user to register a thermostat in their unit with the API, change and synchronize modes with the back-end and regulate the desired indoor temperature.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
+
+## Features
+
+- Mobile-first design.
+- A user is able to access the thermostat UI from both mobile and web.
+- A user is able to register their thermostat with a home automation backend.
+- When users close their session/browser and open it again, they have access to their thermostat that was previously registered
+- A user is able to see the current temperature inside the room.
+- A user is able to switch the thermostat off.
+- A user is able to switch the thermostat to heating mode.
+- A user is able to switch the thermostat to cooling mode.
+- A user is able to set the desired temperature and set the thermostat to auto mode.
+- While thermostat is in an auto mode, a user is able to see if it is either 1) heating if current temperature is less than desired temperature, 2) cooling if desired temperature is less than current temperature or 3) is in stand-by mode if desired temperature is equal to current temperature.
+- The thermostat switches between heating and cooling in real time once the current temperature changes.
+- A user cannot switch thermostat to cooling if the current outside temperature is below 0˚C.
+- If thermostat is 1) in auto mode and 2) the current temperature in the room is above the desired temperature set by a user, 3) and the current outside temperature is below 0˚C, the thermostat goes to stand-by mode instead of cooling.
+- Current temperature is equal to average temperature for the last 15 minutes. However, it’s unreasonable to use less than 3 data points to measure the current temperature.
+
+## Screenshots
+
+!["Mobile view"]
+
+!["Desktop view"]
+
+## Getting Started
+
+- Install all dependencies (using the `npm install` command).
+- Run the local server using the `npm start` command in your terminal of choice.
+- Direct your browser to http://localhost/3000.
 
 ## Available Scripts
 
