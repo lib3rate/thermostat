@@ -30,16 +30,16 @@ export const thermostatSlice = createSlice({
       state.desiredTemperature = action.payload;
     },
     increaseDesiredTemperature: state => {
-      state.desiredTemperature
-        ? state.desiredTemperature = state.desiredTemperature
-        : state.desiredTemperature = state.currentIndoorTemperature;
+      if (!state.desiredTemperature) {
+        state.desiredTemperature = state.currentIndoorTemperature;
+      }
 
       state.desiredTemperature += 1;
     },
     decreaseDesiredTemperature: state => {
-      state.desiredTemperature
-        ? state.desiredTemperature = state.desiredTemperature
-        : state.desiredTemperature = state.currentIndoorTemperature;
+      if (!state.desiredTemperature) {
+        state.desiredTemperature = state.currentIndoorTemperature;
+      }
 
       state.desiredTemperature -= 1;
     }

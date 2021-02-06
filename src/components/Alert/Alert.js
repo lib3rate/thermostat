@@ -5,7 +5,6 @@ import MuiAlert from '@material-ui/lab/Alert';
 
 import {
   setAlertOpen,
-  setAlertMessage,
   checkIfOpen,
   selectAlertMessage
 } from './alertSlice';

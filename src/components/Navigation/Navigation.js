@@ -6,6 +6,7 @@ import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
+import EcoIcon from '@material-ui/icons/Eco';
 import List from '@material-ui/core/List';
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -28,16 +29,26 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   appBar: {
+    background: '#f2f7f7',
     [theme.breakpoints.up('sm')]: {
       height: appBarHeight,
       marginLeft: drawerWidth,
     },
   },
   menuButton: {
+    color: "#37dbdb",
     marginRight: theme.spacing(2),
     [theme.breakpoints.up('sm')]: {
       display: 'none',
     },
+  },
+  logo: {
+    display: 'flex',
+    alignItems: 'center',
+    color: 'black',
+  },
+  logoImage: {
+    color: '#37dbdb',
   },
   // necessary for content to be below app bar
   toolbar: theme.mixins.toolbar,
@@ -50,6 +61,9 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
     flexGrow: 1,
   },
+  drawerText: {
+    fontWeight: 700
+  }
 }));
 
 export default function NavigationDrawer(props) {
@@ -68,8 +82,10 @@ export default function NavigationDrawer(props) {
 
   const drawer = (
     <div>
-      <div className={classes.toolbar}>
-        Building Units ({units.length})
+      <div className={classes.toolbar} style={{display: 'flex', alignItems: 'center', margin: '0 16px'}}>
+        <div>
+          <span className={classes.drawerText}>Building Units ({units.length})</span>
+        </div>
       </div>
       <Divider />
       <List>
@@ -91,7 +107,6 @@ export default function NavigationDrawer(props) {
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <IconButton
-            color="inherit"
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
@@ -99,6 +114,10 @@ export default function NavigationDrawer(props) {
           >
             <MenuIcon />
           </IconButton>
+          <div className={classes.logo}>
+            <EcoIcon className={classes.logoImage}/>
+            <span className={classes.drawerText}>Thermostat</span>
+          </div>
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="building units">
