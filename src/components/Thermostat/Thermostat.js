@@ -14,10 +14,7 @@ import {
   setDesiredTemperature,
   selectCurrentUnit,
   selectId,
-  selectMode,
-  // selectCurrentIndoorTemperature,
-  // selectCurrentOutdoorTemperature,
-  // selectDesiredTemperature
+  selectMode
 } from './thermostatSlice';
 import { setAlertOpen, setAlertMessage } from '../Alert/alertSlice';
 
