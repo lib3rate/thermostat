@@ -9,6 +9,7 @@ import { changeThermostatUnit } from '../Thermostat/thermostatSlice';
 
 const useStyles = makeStyles((theme) => ({
   unitText: {
+    color: '#092652',
     fontWeight: 700
   }
 }));

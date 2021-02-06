@@ -22,6 +22,11 @@ import { setAlertOpen, setAlertMessage } from '../Alert/alertSlice';
 import { register, fetchTemperature } from "../../helpers/helpers";
 
 const useStyles = makeStyles((theme) => ({
+  unitTitle: {
+    color: '#092652',
+    fontSize: '1.125rem',
+    fontWeight: 700
+  },
   modeInterface: {
     display: 'flex'
   },
@@ -98,7 +103,7 @@ export default function Thermostat() {
   return (
     <div>
       <div>
-        {currentUnit} - Thermostat
+        <span className={classes.unitTitle}>{currentUnit} - Thermostat</span>
       </div>
       <ModeButton
         text='Turn off'

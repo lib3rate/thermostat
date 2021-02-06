@@ -29,13 +29,13 @@ const useStyles = makeStyles((theme) => ({
   selected: {
     margin: '0.25rem 0',
     width: '12rem',
-    background: "blue"
+    background: "#37dbdb"
   },
   modeButtonText: {
-    color: "blue"
+    color: "#092652e"
   },
   powerButtonText: {
-    color: "red"
+    color: "#d40d1d"
   },
   selectedText: {
     color: "white"

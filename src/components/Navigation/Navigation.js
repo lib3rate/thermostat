@@ -62,6 +62,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   drawerText: {
+    color: '#092652',
     fontWeight: 700
   }
 }));
