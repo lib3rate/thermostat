@@ -75,7 +75,6 @@ export default function ModeButton(props) {
   
   async function changeThermostatMode() {
     const mode = assignButtonMode();
-    console.log(mode);
 
     if (mode === 'cool' && currentOutdoorTemperature < 0) {
       dispatch(setAlertMessage(`Cannot set the mode to "Cooling" - it's below 0˚C outside!`));

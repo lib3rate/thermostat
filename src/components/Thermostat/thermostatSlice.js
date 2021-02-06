@@ -57,15 +57,6 @@ export const {
   decreaseDesiredTemperature
 } = thermostatSlice.actions;
 
-// Asynchronous state mutations
-// export const setReceivedIndoorTemperature = temperature => dispatch => {
-//   dispatch(setCurrentIndoorTemperature(temperature));
-// };
-
-// export const setReceivedOutdoorTemperature = temperature => dispatch => {
-//   dispatch(setCurrentOutdoorTemperature(temperature));
-// };
-
 // Selectors
 export const selectId = state => state.thermostat.id;
 export const selectCurrentUnit = state => state.thermostat.currentUnit;

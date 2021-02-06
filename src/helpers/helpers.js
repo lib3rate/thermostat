@@ -80,7 +80,6 @@ export async function fetchTemperature(sensor) {
 };
 
 export async function fetchCurrentStatus(id) {
-  console.log(id);
   let response = {};
   const errorText = 'Could not receive current thermostat mode';
 
