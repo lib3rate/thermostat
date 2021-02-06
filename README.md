@@ -25,9 +25,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Screenshots
 
-!["Mobile view"]
+!["Mobile view"](https://github.com/lib3rate/thermostat/blob/master/public/Mobile%20view.png)
 
-!["Desktop view"]
+!["Desktop view"](https://github.com/lib3rate/thermostat/blob/master/public/Desktop%20view.png)
 
 ## Getting Started
 
