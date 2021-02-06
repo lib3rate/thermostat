@@ -29,6 +29,12 @@ const useStyles = makeStyles((theme) => ({
   },
   modeInterface: {
     display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    [theme.breakpoints.up('sm')]: {
+      flexDirection: 'row',
+      alignItems: 'flex-start'
+    },
   },
   modeButtons: {
     display: 'flex',
