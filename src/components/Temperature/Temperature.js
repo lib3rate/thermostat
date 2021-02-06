@@ -80,14 +80,16 @@ export default function Temperature(props) {
   async function changeThermostatMode() {
     let mode = null;
 
-    // Getting the updated desired temperature from the store as Redux selector still has the old state data
+    // Get the updated temperature from the store as Redux selector still has the old state data
+    const updatedCurrentTemperature = store.getState().thermostat.currentIndoorTemperature;
+    const updatedOutdoorTemperature = store.getState().thermostat.currentOutdoorTemperature;
     const updatedDesiredTemperature = store.getState().thermostat.desiredTemperature;
 
-    if (currentIndoorTemperature > updatedDesiredTemperature) {
-      currentOutdoorTemperature < 0 ? mode = 'auto_standby' : mode = 'auto_cool';
-    } else if (currentIndoorTemperature < updatedDesiredTemperature) {
+    if (updatedCurrentTemperature > updatedDesiredTemperature) {
+      updatedOutdoorTemperature < 0 ? mode = 'auto_standby' : mode = 'auto_cool';
+    } else if (updatedCurrentTemperature < updatedDesiredTemperature) {
       mode = 'auto_heat';
-    } else if (currentIndoorTemperature === updatedDesiredTemperature) {
+    } else if (updatedCurrentTemperature === updatedDesiredTemperature) {
       mode = 'auto_standby';
     }
 

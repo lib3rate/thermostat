@@ -35,6 +35,7 @@ export async function fetchTemperature(sensor) {
   const currentTimestampHour = currentDateTime.getHours();
   let previousTimestampHour = currentTimestampHour;
   const currentTimestampMinutes = currentDateTime.getMinutes();
+  // Make the request every 17 minutes to make sure that there are at least 3 data points
   let previousTimestampMinutes = currentTimestampMinutes - 17;
   
   if (currentTimestampMinutes < 17) {
