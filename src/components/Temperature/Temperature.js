@@ -121,7 +121,6 @@ export default function Temperature(props) {
 
   return (
     <div className={classes.temperatureMain}>
-      {/* <Thermometer /> */}
       <div className={classes.temperatureContainer}>
         <div className={classes.temperatureDisplay}>
           <span>Current temperature:</span>
