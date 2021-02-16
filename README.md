@@ -4,6 +4,8 @@
 
 A front-end client that allows a user to register a thermostat in their unit with the API, change and synchronize modes with the back-end and regulate the desired indoor temperature.
 
+Link: [https://thermostat-react.herokuapp.com/](https://thermostat-react.herokuapp.com/)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
 
 ## Features
