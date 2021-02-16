@@ -13,7 +13,6 @@ import {
   selectId,
   selectMode,
   selectCurrentIndoorTemperature,
-  selectCurrentOutdoorTemperature,
   selectDesiredTemperature
 } from '../Thermostat/thermostatSlice';
 import { setAlertOpen, setAlertMessage } from '../Alert/alertSlice';
@@ -56,7 +55,6 @@ export default function Temperature(props) {
   const id = useSelector(selectId);
   const currentMode = useSelector(selectMode);
   const currentIndoorTemperature = useSelector(selectCurrentIndoorTemperature);
-  const currentOutdoorTemperature = useSelector(selectCurrentOutdoorTemperature);
   const desiredTemperature = useSelector(selectDesiredTemperature);
 
   function decreaseTemperature() {

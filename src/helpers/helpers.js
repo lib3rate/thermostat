@@ -53,7 +53,7 @@ export async function fetchTemperature(sensor) {
 
   try {
     response = await axios.get(
-      `http://api-staging.paritygo.com/sensors/api/sensors/${sensor}/?begin=${previousTimestamp}&end=${currentTimestamp}`
+      `https://api-staging.paritygo.com/sensors/api/sensors/${sensor}/?begin=${previousTimestamp}&end=${currentTimestamp}`
     );
     if (response.status === 200) {
       response = response.data;
