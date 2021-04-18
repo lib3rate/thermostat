@@ -63,10 +63,8 @@ export default function Thermostat() {
         dispatch(setAlertMessage('Could not register thermostat'));
         dispatch(setAlertOpen(true));
       }
-    }
-
-    // Save the thermostat id in the state if it is stored locally but not in the state
-    if (!thermostatId) {
+    } else if (localStorageId && !thermostatId) {
+      // Save the thermostat id in the state if it is stored locally but not in the state
       dispatch(registerThermostat(localStorageId))
     };
 
